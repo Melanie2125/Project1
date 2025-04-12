@@ -18,11 +18,9 @@ notebook.pack(fill='both', expand=True)
 style.configure('TNotebook.Tab', font=('Comic Sans MS', 11))
 
 style.configure('TNotebook.Tab',
-                background='yellow',
                 foreground='#6495ED',
                 font=('Comic Sans MS', 12),
                 padding=[10, 5])
-
 
 home_frame = tk.Frame(notebook, bg='lightblue')
 notebook.add(home_frame, text="Home")
@@ -80,9 +78,14 @@ tk.Label(
 columns_frame = tk.Frame(create_frame, bg='lightblue')
 columns_frame.pack()
 
+
 # Column 1: Customer Info
 customer_frame = tk.Frame(columns_frame, bg='lightblue')
 customer_frame.pack(side='left', padx=20)
+
+tk.Label(customer_frame, text="Customer ID (Used to Identify You! Numbers only!)", bg='lightblue').pack(fill='x')
+customer_id_entry = tk.Entry(customer_frame)
+customer_id_entry.pack(pady=5)
 
 tk.Label(customer_frame, text="Customer First Name", bg='lightblue').pack(fill='x')
 first_name_entry = tk.Entry(customer_frame)
@@ -92,7 +95,7 @@ tk.Label(customer_frame, text="Customer Last Name", bg='lightblue').pack(fill='x
 last_name_entry = tk.Entry(customer_frame)
 last_name_entry.pack(pady=5)
 
-tk.Label(customer_frame, text="Phone Number", bg='lightblue').pack(fill='x')
+tk.Label(customer_frame, text="Phone Number (XXX-XXX-XXXX)", bg='lightblue').pack(fill='x')
 phone_entry = tk.Entry(customer_frame)
 phone_entry.pack(pady=5)
 
@@ -125,8 +128,31 @@ appt_time_entry = tk.Entry(appt_frame)
 appt_time_entry.pack(pady=5)
 
 tk.Label(appt_frame, text="Service", bg='lightblue').pack(fill='x')
-service_combo = ttk.Combobox(appt_frame, values=["Bathing", "Grooming", "Nail Trimming", "Check-up"])
-service_combo.pack(pady=5)
+service_selec = ttk.Combobox(appt_frame, values=["Bathing", "Grooming", "Nail Trimming", "Check-up"])
+service_selec.pack(pady=5)
+
+
+
+
+def create_appointment():
+    user_id = customer_id_entry.get()
+    fname = first_name_entry.get()
+    lname = last_name_entry.get()
+    phone = phone_entry.get()
+    pet_name = pet_name_entry.get()
+    pet_bday = pet_bday_entry.get()
+    pet_type = pet_type_entry.get()
+    appt_date = appt_date_entry.get()
+    appt_time = appt_time_entry.get()
+    service = service_selec.get()
+
+    # Connecting to the database
+    conn = sqlite3.connect("proj1.db")
+    cur = conn.cursor()
+
+tk.Button(create_frame, text="Create Appointment", command=create_appointment).pack(pady=15)
+
+
 
 # 2 images at the bottom
 image_cat = Image.open("photos/cat-photo.jpg")
@@ -142,7 +168,6 @@ photo_fish = ImageTk.PhotoImage(image_fish)
 
 image_fish = tk.Label(create_frame, image=photo_fish)
 image_fish.pack(pady=15)
-
 
 
 # Read Tab
