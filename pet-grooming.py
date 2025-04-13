@@ -7,7 +7,7 @@ from datetime import datetime
 
 root = tk.Tk()
 
-root.geometry("765x800")
+root.geometry("780x800")
 root.title("Pet Grooming Shop Management System")
 root.configure(bg='lightblue')
 
@@ -65,7 +65,7 @@ image_dog.pack(pady=20)
 
 
 # Create Tab
-create_frame = tk.Frame(notebook, bg='lightblue')
+create_frame = tk.LabelFrame(notebook, bg='lightblue')
 notebook.add(create_frame, text="Create Appointment & Info")
 
 tk.Label(
@@ -79,9 +79,17 @@ columns_frame = tk.Frame(create_frame, bg='lightblue')
 columns_frame.pack()
 
 
-# Column 1: Customer Info
-customer_frame = tk.Frame(columns_frame, bg='lightblue')
+# Customer Info Box
+customer_frame = tk.LabelFrame(columns_frame, bg='lightblue')
 customer_frame.pack(side='left', padx=20)
+
+customer_frame = tk.LabelFrame(
+    columns_frame,
+    text="Customer Enter Info",
+    bg='lightblue',
+    font=('Arial', 10, 'bold')
+)
+customer_frame.pack(side='left', padx=20, pady=10)
 
 tk.Label(customer_frame, text="Customer ID (Used to Identify You! Numbers only!)", bg='lightblue').pack(fill='x')
 customer_id_entry = tk.Entry(customer_frame)
@@ -99,9 +107,16 @@ tk.Label(customer_frame, text="Phone Number (XXX-XXX-XXXX)", bg='lightblue').pac
 phone_entry = tk.Entry(customer_frame)
 phone_entry.pack(pady=5)
 
-# Column 2: Pet Info
-pet_frame = tk.Frame(columns_frame, bg='lightblue')
-pet_frame.pack(side='left', padx=20)
+
+
+# Pet Info Box
+pet_frame = tk.LabelFrame(
+    columns_frame,
+    text="Pet Enter Info",
+    bg='lightblue',
+    font=('Arial', 10, 'bold')
+)
+pet_frame.pack(side='left', padx=20, pady=10)
 
 tk.Label(pet_frame, text="Pet Name", bg='lightblue').pack(fill='x')
 pet_name_entry = tk.Entry(pet_frame)
@@ -115,9 +130,16 @@ tk.Label(pet_frame, text="Pet Type", bg='lightblue').pack(fill='x')
 pet_type_entry = tk.Entry(pet_frame)
 pet_type_entry.pack(pady=5)
 
-# Column 3: Appointment Info
-appt_frame = tk.Frame(columns_frame, bg='lightblue')
-appt_frame.pack(side='left', padx=20)
+
+
+# Appointment Info Box
+appt_frame = tk.LabelFrame(
+    columns_frame,
+    text="Appointment Enter Info",
+    bg='lightblue',
+    font=('Arial', 10, 'bold')
+)
+appt_frame.pack(side='left', padx=20, pady=10)
 
 tk.Label(appt_frame, text="Appointment Date (YYYY-MM-DD)", bg='lightblue').pack(fill='x')
 appt_date_entry = tk.Entry(appt_frame)
@@ -130,7 +152,6 @@ appt_time_entry.pack(pady=5)
 tk.Label(appt_frame, text="Service", bg='lightblue').pack(fill='x')
 service_selec = ttk.Combobox(appt_frame, values=["Bathing", "Grooming", "Nail Trimming", "Check-up"])
 service_selec.pack(pady=5)
-
 
 
 
@@ -192,24 +213,109 @@ tk.Button(create_frame, text="Create Appointment", command=create_appointment_ad
 
 
 # 2 images at the bottom
+image_frame = tk.Frame(create_frame, bg='lightblue')
+image_frame.pack(pady=15)
+
 image_cat = Image.open("photos/cat-photo.jpg")
 image_cat = image_cat.resize((300, 150))
 photo_cat = ImageTk.PhotoImage(image_cat)
 
-image_cat = tk.Label(create_frame, image=photo_cat)
-image_cat.pack(pady=15)
+label_cat = tk.Label(image_frame, image=photo_cat, bg='lightblue')
+label_cat.pack(side='left', padx=10)
 
 image_fish = Image.open("photos/fish-photo.jpg")
 image_fish = image_fish.resize((300, 150))
 photo_fish = ImageTk.PhotoImage(image_fish)
 
-image_fish = tk.Label(create_frame, image=photo_fish)
-image_fish.pack(pady=15)
+label_fish = tk.Label(image_frame, image=photo_fish, bg='lightblue')
+label_fish.pack(side='left', padx=10)
+
+
+
+
 
 
 # Read Tab
 read_frame = tk.Frame(notebook, bg='lightblue')
 notebook.add(read_frame, text="Review your Info")
+
+tk.Label(
+    read_frame,
+    text="Review Your Information",
+    font=('Comic Sans MS', 16, 'bold'),
+    bg='lightblue'
+).pack(pady=(10, 10))
+
+info_columns = tk.Frame(read_frame, bg='lightblue')
+info_columns.pack(padx=20, pady=10)
+
+# Appointment Info Entry Box
+appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='lightblue', font=('Arial', 10, 'bold'))
+appt_frame.grid(row=0, padx=10, pady=10)
+
+tk.Label(appt_frame, text="Appointment ID", bg='lightblue').grid(row=0)
+appt_id_entry = tk.Entry(appt_frame)
+appt_id_entry.grid(row=1, pady=5)
+
+tk.Label(appt_frame, text="First Name", bg='lightblue').grid(row=2)
+fname_entry = tk.Entry(appt_frame)
+fname_entry.grid(row=3, pady=5)
+
+tk.Label(appt_frame, text="Last Name", bg='lightblue').grid(row=4)
+lname_entry = tk.Entry(appt_frame)
+lname_entry.grid(row=5, pady=5)
+
+tk.Button(appt_frame, text="Show Your Appointment!").grid(row=6, pady=10)
+
+# Customer Info Entry Box
+cust_frame = tk.LabelFrame(info_columns, text="Customer Info", bg='lightblue', font=('Arial', 10, 'bold'))
+cust_frame.grid(row=0, column=1, padx=10, pady=10)
+
+tk.Label(cust_frame, text="Appointment ID", bg='lightblue').grid(row=0)
+appointment_id_entry = tk.Entry(cust_frame)
+appointment_id_entry.grid(row=1, pady=5)
+
+tk.Label(cust_frame, text="First Name", bg='lightblue').grid(row=2)
+first_name_entry = tk.Entry(cust_frame)
+first_name_entry.grid(row=3, pady=5)
+
+tk.Label(cust_frame, text="Last Name", bg='lightblue').grid(row=4)
+last_name_entry = tk.Entry(cust_frame)
+last_name_entry.grid(row=5, pady=5)
+
+tk.Button(cust_frame, text="Show My Information!").grid(row=6, pady=10)
+
+# Pet Info Entry Box
+pet_frame = tk.LabelFrame(info_columns, text="Pet Info", bg='lightblue', font=('Arial', 10, 'bold'))
+pet_frame.grid(row=0, column=2, padx=10, pady=10, sticky='n')
+
+tk.Label(pet_frame, text="Pet ID", bg='lightblue').grid(row=0)
+pet_id_entry = tk.Entry(pet_frame)
+pet_id_entry.grid(row=1, pady=5)
+
+tk.Label(pet_frame, text="Pet Name", bg='lightblue').grid(row=2)
+pet_name_entry = tk.Entry(pet_frame)
+pet_name_entry.grid(row=3, pady=5)
+
+tk.Button(pet_frame, text="Show Pet Information!").grid(row=4, pady=10)
+
+
+# Services Button will Join Services and ServiceTypes Tables and show Info
+tk.Button(read_frame, text="Show Services Offered!").pack(pady=15)
+
+
+
+
+# Wheaten Terrier at bottom
+wheaten_terrier = Image.open("photos/wheaten-photo.jpg")
+wheaten_terrier = wheaten_terrier.resize((400, 250))
+photo_terrier = ImageTk.PhotoImage(wheaten_terrier)
+
+wheaten_terrier = tk.Label(read_frame, image=photo_terrier)
+wheaten_terrier.pack(pady=15)
+
+
+
 
 # Update Tab
 update_frame = tk.Frame(notebook, bg='lightblue')
