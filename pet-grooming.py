@@ -233,8 +233,6 @@ label_fish.pack(side='left', padx=10)
 
 
 
-
-
 # Read Tab
 read_frame = tk.Frame(notebook, bg='lightblue')
 notebook.add(read_frame, text="Review your Info")
@@ -248,6 +246,7 @@ tk.Label(
 
 info_columns = tk.Frame(read_frame, bg='lightblue')
 info_columns.pack(padx=20, pady=10)
+
 
 # Appointment Info Entry Box
 appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='lightblue', font=('Arial', 10, 'bold'))
@@ -265,13 +264,75 @@ tk.Label(appt_frame, text="Last Name", bg='lightblue').grid(row=4)
 lname_entry = tk.Entry(appt_frame)
 lname_entry.grid(row=5, pady=5)
 
-tk.Button(appt_frame, text="Show Your Appointment!").grid(row=6, pady=10)
+def show_appointment():
+    appt_id = appt_id_entry.get()
+    fname = fname_entry.get().lower().strip()
+    lname = lname_entry.get().lower().strip()
+    
+    conn = sqlite3.connect("proj1.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT 
+            a.appointment_id,
+            c.first_name,
+            c.last_name,
+            a.date,
+            a.time,
+            a.status,
+            st.service_type,
+            st.price,
+            st.duration,
+            st.description,
+            s.provider_name,
+            s.tools_used,
+            p.name AS pet_name
+        FROM Appointments a
+        JOIN Customers c ON a.customer_id = c.customer_id
+        JOIN Pets p ON a.pet_id = p.pet_id
+        JOIN Services s ON a.service_id = s.service_id
+        JOIN ServiceTypes st ON s.service_type = st.service_type
+        WHERE a.appointment_id = ?
+            AND LOWER(c.first_name) = ?
+            AND LOWER(c.last_name) = ?
+    """, (appt_id, fname, lname))
+
+    result = cursor.fetchone()
+    conn.close()
+
+    if result:
+        (appt_id, first_name, last_name, date, time, status,
+            service_type, price, duration, description,
+            provider_name, tools_used, pet_name) = result
+
+        messagebox.showinfo(
+            "Appointment Details",
+            f"Appointment ID: {appt_id}\n"
+            f"Customer: {first_name} {last_name}\n"
+            f"Pet: {pet_name}\n\n"
+            f"Service: {service_type}\n"
+            f"Description: {description}\n"
+            f"Provider: {provider_name}\n"
+            f"Tools Used: {tools_used}\n"
+            f"Price: ${price:.2f}\n"
+            f"Duration: {duration} minutes\n\n"
+            f"Date: {date}\n"
+            f"Time: {time}\n"
+            f"Status: {status}"
+        )
+    else:
+        messagebox.showwarning("Not Found", "Appointment not found. Please check your info")
+
+
+tk.Button(appt_frame, text="Show Your Appointment!", command=show_appointment).grid(row=6, pady=10)
+
+
 
 # Customer Info Entry Box
 cust_frame = tk.LabelFrame(info_columns, text="Customer Info", bg='lightblue', font=('Arial', 10, 'bold'))
 cust_frame.grid(row=0, column=1, padx=10, pady=10)
 
-tk.Label(cust_frame, text="Appointment ID", bg='lightblue').grid(row=0)
+tk.Label(cust_frame, text="Customer ID", bg='lightblue').grid(row=0)
 appointment_id_entry = tk.Entry(cust_frame)
 appointment_id_entry.grid(row=1, pady=5)
 
@@ -283,7 +344,41 @@ tk.Label(cust_frame, text="Last Name", bg='lightblue').grid(row=4)
 last_name_entry = tk.Entry(cust_frame)
 last_name_entry.grid(row=5, pady=5)
 
-tk.Button(cust_frame, text="Show My Information!").grid(row=6, pady=10)
+
+def show_customer_info():
+    customer_id = appointment_id_entry.get()
+    fname = first_name_entry.get().lower()
+    lname = last_name_entry.get().lower()
+
+    conn = sqlite3.connect("proj1.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT customer_id, first_name, last_name, phone_number
+        FROM Customers
+        WHERE customer_id = ?
+            AND LOWER(first_name) = ?
+            AND LOWER(last_name) = ?
+    """, (customer_id, fname, lname))
+
+    result = cursor.fetchone()
+
+    if result:
+        cid, fname, lname, phone = result
+
+        messagebox.showinfo(
+            "Your Customer Info",
+            f"Customer ID: {cid}\n"
+            f"Name: {fname} {lname}\n"
+            f"Phone: {phone}"
+        )
+    else:
+        messagebox.showwarning("Not Found", "Customer not found. Please check your info.")
+
+
+tk.Button(cust_frame, text="Show My Information!", command=show_customer_info).grid(row=6, pady=10)
+
+
 
 # Pet Info Entry Box
 pet_frame = tk.LabelFrame(info_columns, text="Pet Info", bg='lightblue', font=('Arial', 10, 'bold'))
@@ -297,13 +392,75 @@ tk.Label(pet_frame, text="Pet Name", bg='lightblue').grid(row=2)
 pet_name_entry = tk.Entry(pet_frame)
 pet_name_entry.grid(row=3, pady=5)
 
-tk.Button(pet_frame, text="Show Pet Information!").grid(row=4, pady=10)
+
+def show_pet_info():
+    pet_id = pet_id_entry.get()
+    name = pet_name_entry.get().lower()
+
+    conn = sqlite3.connect("proj1.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT p.pet_id, p.name, p.birthday, p.type, c.first_name, c.last_name
+        FROM Pets p
+        JOIN Customers c ON p.customer_id = c.customer_id
+        WHERE p.pet_id = ?
+            AND LOWER(p.name) = ?
+    """, (pet_id, name))
+
+    result = cursor.fetchone()
+
+    if result:
+        pet_id, name, birthday, pet_type, first_name, last_name = result
+
+        messagebox.showinfo(
+            "Your Pet Info",
+            f"Pet ID: {pet_id}\n"
+            f"Pet Name: {name}\n"
+            f"Birthday: {birthday}\n"
+            f"Type: {pet_type}\n"
+            f"Owner: {first_name} {last_name}"
+        )
+    else:
+        messagebox.showwarning("Not Found", "Pet not found. Please check your info.")
+
+    conn.close()
+
+
+tk.Button(pet_frame, text="Show My Pet Information!", command=show_pet_info).grid(row=4, pady=10)
+
+
+def show_services():
+    conn = sqlite3.connect("proj1.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT s.service_type, s.provider_name, s.tools_used, st.price, st.duration, st.description
+        FROM Services s
+        JOIN ServiceTypes st ON s.service_type = st.service_type
+    """)
+
+    result = cursor.fetchall()
+
+    if result:
+        services_info = ""
+        for row in result:
+            service_type, provider_name, tools_used, price, duration, description = row
+            services_info += (
+                f"Service Type: {service_type}\n"
+                f"Provider Name: {provider_name}\n"
+                f"Tools Used: {tools_used}\n"
+                f"Price: ${price:.2f}\n"
+                f"Duration: {duration} minutes\n"
+                f"Description: {description}\n\n"
+            )
+        messagebox.showinfo("Services Our Pet Grooming Shop Offers", services_info)
+
+    conn.close()
 
 
 # Services Button will Join Services and ServiceTypes Tables and show Info
-tk.Button(read_frame, text="Show Services Offered!").pack(pady=15)
-
-
+tk.Button(read_frame, text="Show Services Offered!", command=show_services).pack(pady=15)
 
 
 # Wheaten Terrier at bottom
