@@ -134,7 +134,7 @@ service_selec.pack(pady=5)
 
 
 
-def create_appointment():
+def create_appointment_add_info():
     user_id = customer_id_entry.get()
     fname = first_name_entry.get()
     lname = last_name_entry.get()
@@ -150,7 +150,44 @@ def create_appointment():
     conn = sqlite3.connect("proj1.db")
     cur = conn.cursor()
 
-tk.Button(create_frame, text="Create Appointment", command=create_appointment).pack(pady=15)
+    # Checks if the customer_id entered already exists in the Customers table
+    cur.execute("SELECT customer_id FROM Customers WHERE customer_id = ?", (user_id,))
+    result = cur.fetchone()
+
+    if result:
+        messagebox.showerror("Error", "Customer ID already exists. Please choose a different ID.")
+        conn.close()
+        return
+
+    # Creates new Customer with the provided user_id
+    cur.execute("INSERT INTO Customers (customer_id, first_name, last_name, phone_number) VALUES (?, ?, ?, ?)",
+                (user_id, fname, lname, phone))
+
+    # Inserts the pet into Pets table
+    cur.execute("INSERT INTO Pets (name, birthday, type, customer_id) VALUES (?, ?, ?, ?)",
+                (pet_name, pet_bday, pet_type, user_id))
+
+    pet_id = cur.lastrowid  # SQLite assigned the id to the pet
+
+    # Get service_id based on selected service
+    cur.execute("SELECT service_id FROM Services WHERE service_type = ?", (service,))
+    service_id = cur.fetchone()[0]
+
+    # Generates appointment_id
+    appt_id = fname[:1].lower() + lname[:1].lower() + str(int(datetime.now().timestamp()))[-4:]
+
+    # Insert the create appointment into Appointments table
+    cur.execute("INSERT INTO Appointments (appointment_id, date, time, status, customer_id, pet_id, service_id) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (appt_id, appt_date, appt_time, 'Scheduled', user_id, pet_id, service_id))
+
+    conn.commit()
+    conn.close()
+
+    messagebox.showinfo("Success", "Appointment created successfully! The ID of your pet is: " + str(pet_id) + ". Your appointment ID is: " + str(appt_id) + ".")
+
+
+tk.Button(create_frame, text="Create Appointment", command=create_appointment_add_info).pack(pady=15)
 
 
 
