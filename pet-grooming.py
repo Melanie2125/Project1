@@ -25,7 +25,7 @@ style.configure('TNotebook.Tab',
 home_frame = tk.Frame(notebook, bg='lightblue')
 notebook.add(home_frame, text="Home")
 
-header = tk.Label(home_frame, text="Welcome to The Pet Grooming Shop Management System!", bg='lightblue', font=('Comic Sans MS', 18))
+header = tk.Label(home_frame, text="Welcome to The Pet Grooming Shop Management System!", bg='lightblue', font=('Comic Sans MS', 18, 'bold'))
 header.pack(padx=20, pady=20)
 
 desc_label = tk.Label(
@@ -167,6 +167,10 @@ def create_appointment_add_info():
     appt_time = appt_time_entry.get()
     service = service_selec.get()
 
+    if not all([user_id, fname, lname, phone, pet_name, pet_bday, pet_type, appt_date, appt_time, service]):
+        messagebox.showerror("Error", "Please fill in all fields before submitting.")
+        return
+
     # Connecting to the database
     conn = sqlite3.connect("proj1.db")
     cur = conn.cursor()
@@ -239,7 +243,7 @@ notebook.add(read_frame, text="Review your Info")
 
 tk.Label(
     read_frame,
-    text="Review Your Information",
+    text="Review Your Information and Services we Offer!",
     font=('Comic Sans MS', 16, 'bold'),
     bg='lightblue'
 ).pack(pady=(10, 10))
@@ -337,18 +341,18 @@ appointment_id_entry = tk.Entry(cust_frame)
 appointment_id_entry.grid(row=1, pady=5)
 
 tk.Label(cust_frame, text="First Name", bg='lightblue').grid(row=2)
-first_name_entry = tk.Entry(cust_frame)
-first_name_entry.grid(row=3, pady=5)
+first_name_read_entry = tk.Entry(cust_frame)
+first_name_read_entry.grid(row=3, pady=5)
 
 tk.Label(cust_frame, text="Last Name", bg='lightblue').grid(row=4)
-last_name_entry = tk.Entry(cust_frame)
-last_name_entry.grid(row=5, pady=5)
+last_name_read_entry = tk.Entry(cust_frame)
+last_name_read_entry.grid(row=5, pady=5)
 
 
 def show_customer_info():
     customer_id = appointment_id_entry.get()
-    fname = first_name_entry.get().lower()
-    lname = last_name_entry.get().lower()
+    fname = first_name_read_entry.get().lower()
+    lname = last_name_read_entry.get().lower()
 
     conn = sqlite3.connect("proj1.db")
     cursor = conn.cursor()
@@ -389,13 +393,13 @@ pet_id_entry = tk.Entry(pet_frame)
 pet_id_entry.grid(row=1, pady=5)
 
 tk.Label(pet_frame, text="Pet Name", bg='lightblue').grid(row=2)
-pet_name_entry = tk.Entry(pet_frame)
-pet_name_entry.grid(row=3, pady=5)
+pet_name_read_entry = tk.Entry(pet_frame)
+pet_name_read_entry.grid(row=3, pady=5)
 
 
 def show_pet_info():
     pet_id = pet_id_entry.get()
-    name = pet_name_entry.get().lower()
+    name = pet_name_read_entry.get().lower()
 
     conn = sqlite3.connect("proj1.db")
     cursor = conn.cursor()
@@ -478,8 +482,187 @@ wheaten_terrier.pack(pady=15)
 update_frame = tk.Frame(notebook, bg='lightblue')
 notebook.add(update_frame, text="Update your Info")
 
+
+
+
+
+
+
+
+
+
+
 # Delete Tab
 delete_frame = tk.Frame(notebook, bg='lightblue')
 notebook.add(delete_frame, text="Delete your Info")
+
+
+tk.Label(
+    delete_frame,
+    text="Delete your Appointments, your Info & Pets Info!",
+    font=('Comic Sans MS', 16, 'bold'),
+    bg='lightblue'
+).pack(pady=(10, 10))
+
+info_columns = tk.Frame(delete_frame, bg='lightblue')
+info_columns.pack(padx=20, pady=10)
+
+
+# Appointment Info Entry Box
+appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='lightblue', font=('Arial', 10, 'bold'))
+appt_frame.grid(row=0, padx=10, pady=10)
+
+tk.Label(appt_frame, text="Appointment ID", bg='lightblue').grid(row=0)
+appt_id_delete_entry = tk.Entry(appt_frame)
+appt_id_delete_entry.grid(row=1, pady=5)
+
+tk.Label(appt_frame, text="First Name", bg='lightblue').grid(row=2)
+fname_delete_entry = tk.Entry(appt_frame)
+fname_delete_entry.grid(row=3, pady=5)
+
+tk.Label(appt_frame, text="Last Name", bg='lightblue').grid(row=4)
+lname_delete_entry = tk.Entry(appt_frame)
+lname_delete_entry.grid(row=5, pady=5)
+
+
+def delete_appointment():
+    appt_id = appt_id_delete_entry.get()
+    fname = fname_delete_entry.get().lower().strip()
+    lname = lname_delete_entry.get().lower().strip()
+
+    conn = sqlite3.connect("proj1.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT A.appointment_id
+        FROM Appointments A
+        JOIN Customers C ON A.customer_id = C.customer_id
+        WHERE A.appointment_id = ? AND LOWER(C.first_name) = ? AND LOWER(C.last_name) = ?
+    """, (appt_id, fname, lname))
+
+    result = cursor.fetchone()
+
+    if result:
+        cursor.execute("""
+            DELETE FROM Appointments
+            WHERE appointment_id = ?
+              AND customer_id = (
+                  SELECT customer_id FROM Customers WHERE LOWER(first_name) = ? AND LOWER(last_name) = ?
+              )
+        """, (appt_id, fname, lname))
+
+        conn.commit()
+        messagebox.showinfo("Success!", "Your Appointment has been Deleted!")
+    else:
+        messagebox.showerror("Error", "Appointment does not exist or info is incorrect.")
+
+    conn.close()
+
+tk.Button(appt_frame, text="Delete Your Appointment!", command=delete_appointment).grid(row=6, pady=10)
+
+
+
+
+# Pet Info Entry Box
+pet_delete_frame = tk.LabelFrame(info_columns, text="Pet Info", bg='lightblue', font=('Arial', 10, 'bold'))
+pet_delete_frame.grid(row=0, column=2, padx=10, pady=10)
+
+tk.Label(pet_delete_frame, text="Pet ID", bg='lightblue').grid(row=0)
+pet_id_delete_entry = tk.Entry(pet_delete_frame)
+pet_id_delete_entry.grid(row=1, pady=5)
+
+tk.Label(pet_delete_frame, text="Pet Name", bg='lightblue').grid(row=2)
+pet_name_delete_entry = tk.Entry(pet_delete_frame)
+pet_name_delete_entry.grid(row=3, pady=5)
+
+
+def delete_pet_info():
+    pet_delete_id = pet_id_delete_entry.get()
+    pet_name_delete = pet_name_delete_entry.get().lower().strip()
+
+    conn = sqlite3.connect("proj1.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT * FROM Pets 
+        WHERE pet_id = ? 
+        AND LOWER(name) = ? 
+    """, (pet_delete_id, pet_name_delete))
+
+    result = cursor.fetchone()
+
+    if result:
+        cursor.execute("""
+            DELETE FROM Pets 
+            WHERE pet_id = ?
+        """, (pet_delete_id))
+        conn.commit()
+        messagebox.showinfo("Success!", "Your Info has been Deleted!")
+    else:
+        messagebox.showerror("Error", "Pet does not exist or info is incorrect.")
+
+    conn.close()
+
+tk.Button(pet_delete_frame, text="Delete Your Pet Information!", command=delete_pet_info).grid(row=6, pady=10)
+
+
+
+# Customer Info Entry Box
+cust_delete_frame = tk.LabelFrame(info_columns, text="Customer Info", bg='lightblue', font=('Arial', 10, 'bold'))
+cust_delete_frame.grid(row=0, column=3, padx=10, pady=10)
+
+tk.Label(cust_delete_frame, text="Customer ID", bg='lightblue').grid(row=0)
+customer_id_delete_entry = tk.Entry(cust_delete_frame)
+customer_id_delete_entry.grid(row=1, pady=5)
+
+tk.Label(cust_delete_frame, text="First Name", bg='lightblue').grid(row=2)
+first_name_delete_entry = tk.Entry(cust_delete_frame)
+first_name_delete_entry.grid(row=3, pady=5)
+
+tk.Label(cust_delete_frame, text="Last Name", bg='lightblue').grid(row=4)
+last_name_delete_entry = tk.Entry(cust_delete_frame)
+last_name_delete_entry.grid(row=5, pady=5)
+
+
+def delete_customer_info():
+    customer_delete_id = customer_id_delete_entry.get()
+    customer_fname_delete = first_name_delete_entry.get().lower().strip()
+    customer_lname_delete = last_name_delete_entry.get().lower().strip()
+
+    conn = sqlite3.connect("proj1.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT * FROM Customers 
+        WHERE customer_id = ? 
+        AND LOWER(first_name) = ? 
+        AND LOWER(last_name) = ?
+    """, (customer_delete_id, customer_fname_delete, customer_lname_delete))
+
+    result = cursor.fetchone()
+
+    if result:
+        cursor.execute("""
+            DELETE FROM Customers 
+            WHERE customer_id = ?
+        """, (customer_delete_id,))
+        conn.commit()
+        messagebox.showinfo("Success!", "Your Info has been Deleted!")
+    else:
+        messagebox.showerror("Error", "Customer does not exist or info is incorrect.")
+
+    conn.close()
+
+tk.Button(cust_delete_frame, text="Delete Your Information!", command=delete_customer_info).grid(row=6, pady=10)
+
+
+# Picture of Dog at bottom
+doc_dog = Image.open("photos/doctor-photo.jpg")
+doc_dog = doc_dog.resize((400, 250))
+photo_doc = ImageTk.PhotoImage(doc_dog)
+
+doc_dog = tk.Label(delete_frame, image=photo_doc)
+doc_dog.pack(pady=15)
+
 
 root.mainloop()
