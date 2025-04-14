@@ -482,12 +482,88 @@ wheaten_terrier.pack(pady=15)
 update_frame = tk.Frame(notebook, bg='lightblue')
 notebook.add(update_frame, text="Update your Info")
 
+tk.Label(
+    update_frame,
+    text="Update your Appointments and your Info & Pets Info!",
+    font=('Comic Sans MS', 16, 'bold'),
+    bg='lightblue'
+).pack(pady=(10, 10))
+
+info_columns = tk.Frame(update_frame, bg='lightblue')
+info_columns.pack(padx=20, pady=10)
+
+# Appointment Update Entry Box
+update_appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='lightblue', font=('Arial', 10, 'bold'))
+update_appt_frame.grid(row=0, padx=10, pady=10)
+
+tk.Label(update_appt_frame, text="Appointment ID", bg='lightblue').grid(row=0)
+appt_id_update_entry = tk.Entry(update_appt_frame)
+appt_id_update_entry.grid(row=1, pady=5)
+
+tk.Label(update_appt_frame, text="Appointment Date (YYYY-MM-DD)", bg='lightblue').grid(row=2)
+date_update_entry = tk.Entry(update_appt_frame)
+date_update_entry.grid(row=3, pady=5)
+
+tk.Label(update_appt_frame, text="Time (HH:MM:SS)", bg='lightblue').grid(row=4)
+time_update_entry = tk.Entry(update_appt_frame)
+time_update_entry.grid(row=5, pady=5)
+
+tk.Label(update_appt_frame, text="Status", bg='lightblue').grid(row=6)
+status_update_entry = tk.Entry(update_appt_frame)
+status_update_entry.grid(row=7, pady=5)
+
+tk.Button(update_appt_frame, text="Update Your Appointment!").grid(row=9, pady=10)
 
 
 
 
+# Pet Update Entry Box
+update_customer_frame = tk.LabelFrame(info_columns, text="Update Pet Info", bg='lightblue', font=('Arial', 10, 'bold'))
+update_customer_frame.grid(row=0, column=1, padx=10, pady=10)
+
+tk.Label(update_customer_frame, text="Pet ID", bg='lightblue').grid(row=0)
+pet_id_update_entry = tk.Entry(update_customer_frame)
+pet_id_update_entry.grid(row=1, pady=5)
+
+tk.Label(update_customer_frame, text="New Name", bg='lightblue').grid(row=2)
+pet_name_update_entry = tk.Entry(update_customer_frame)
+pet_name_update_entry.grid(row=3, pady=5)
+
+tk.Button(update_customer_frame, text="Update Your Pet's Information!").grid(row=6, pady=10)
 
 
+
+# Customer Update Entry Box
+update_pet_frame = tk.LabelFrame(info_columns, text="Update Your Info", bg='lightblue', font=('Arial', 10, 'bold'))
+update_pet_frame.grid(row=0, column=2, padx=10, pady=10)
+
+tk.Label(update_pet_frame, text="Customer ID", bg='lightblue').grid(row=0)
+customer_id_update_entry = tk.Entry(update_pet_frame)
+customer_id_update_entry.grid(row=1, pady=5)
+
+tk.Label(update_pet_frame, text="New First Name", bg='lightblue').grid(row=2)
+fname_update_entry = tk.Entry(update_pet_frame)
+fname_update_entry.grid(row=3, pady=5)
+
+tk.Label(update_pet_frame, text="New Last Name", bg='lightblue').grid(row=4)
+lname_update_entry = tk.Entry(update_pet_frame)
+lname_update_entry.grid(row=5, pady=5)
+
+tk.Label(update_pet_frame, text="New Phone Number", bg='lightblue').grid(row=6)
+phone_update_entry = tk.Entry(update_pet_frame)
+phone_update_entry.grid(row=7, pady=5)
+
+
+tk.Button(update_pet_frame, text="Update Your Information!").grid(row=8, pady=10)
+
+
+# Groomer Photo
+groomer = Image.open("photos/groomer-photo.jpg")
+groomer = groomer.resize((400, 250))
+photo_groomer = ImageTk.PhotoImage(groomer)
+
+groomer = tk.Label(update_frame, image=photo_groomer)
+groomer.pack(pady=15)
 
 
 
@@ -499,7 +575,7 @@ notebook.add(delete_frame, text="Delete your Info")
 
 tk.Label(
     delete_frame,
-    text="Delete your Appointments, your Info & Pets Info!",
+    text="Delete your Appointments and your Info & Pets Info!",
     font=('Comic Sans MS', 16, 'bold'),
     bg='lightblue'
 ).pack(pady=(10, 10))
