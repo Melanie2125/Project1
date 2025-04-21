@@ -9,7 +9,7 @@ root = tk.Tk()
 
 root.geometry("780x800")
 root.title("Pet Grooming Shop Management System")
-root.configure(bg='lightblue')
+root.configure(bg='skyblue')
 
 style = ttk.Style()
 
@@ -22,17 +22,17 @@ style.configure('TNotebook.Tab',
                 font=('Comic Sans MS', 12),
                 padding=[10, 5])
 
-home_frame = tk.Frame(notebook, bg='lightblue')
+home_frame = tk.Frame(notebook, bg='skyblue')
 notebook.add(home_frame, text="Home")
 
-header = tk.Label(home_frame, text="Welcome to The Pet Grooming Shop Management System!", bg='lightblue', font=('Comic Sans MS', 18, 'bold'))
+header = tk.Label(home_frame, text="Welcome to The Pet Grooming Shop Management System!", bg='skyblue', font=('Comic Sans MS', 18, 'bold'))
 header.pack(padx=20, pady=20)
 
 desc_label = tk.Label(
     home_frame,
     text="Easily schedule, view, update, and cancel your pet grooming appointments.\n"
          "Manage your pet's information and explore available grooming services—all in one place!",
-    bg='lightblue',
+    bg='skyblue',
     font=('Comic Sans MS', 12),
 )
 desc_label.pack(pady=(0, 20))
@@ -51,7 +51,7 @@ features_text = (
     "•  Delete your account, pets, or appointments if needed."
 )
 
-features_label = tk.Label(home_frame, text=features_text, font=('Comic Sans MS', 12), justify='left', bg='lightblue')
+features_label = tk.Label(home_frame, text=features_text, font=('Comic Sans MS', 12), justify='left', bg='skyblue')
 features_label.pack(padx=20, pady=10)
 
 image_dog = Image.open("photos/dog-photo.jpg")
@@ -65,45 +65,45 @@ image_dog.pack(pady=20)
 
 
 # Create Tab
-create_frame = tk.LabelFrame(notebook, bg='lightblue')
+create_frame = tk.LabelFrame(notebook, bg='skyblue')
 notebook.add(create_frame, text="Create Appointment & Info")
 
 tk.Label(
     create_frame,
     text="Fill out the form below to create a new appointment.",
     font=('Comic Sans MS', 14, 'bold'),
-    bg='lightblue'
+    bg='skyblue'
 ).pack(pady=(10, 5))
 
-columns_frame = tk.Frame(create_frame, bg='lightblue')
+columns_frame = tk.Frame(create_frame, bg='skyblue')
 columns_frame.pack()
 
 
 # Customer Info Box
-customer_frame = tk.LabelFrame(columns_frame, bg='lightblue')
+customer_frame = tk.LabelFrame(columns_frame, bg='skyblue')
 customer_frame.pack(side='left', padx=20)
 
 customer_frame = tk.LabelFrame(
     columns_frame,
     text="Customer Enter Info",
-    bg='lightblue',
+    bg='skyblue',
     font=('Arial', 10, 'bold')
 )
 customer_frame.pack(side='left', padx=20, pady=10)
 
-tk.Label(customer_frame, text="Customer ID (Used to Identify You! Numbers only!)", bg='lightblue').pack(fill='x')
+tk.Label(customer_frame, text="Customer ID (Used to Identify You! Numbers only!)", bg='skyblue').pack(fill='x')
 customer_id_entry = tk.Entry(customer_frame)
 customer_id_entry.pack(pady=5)
 
-tk.Label(customer_frame, text="Customer First Name", bg='lightblue').pack(fill='x')
+tk.Label(customer_frame, text="Customer First Name", bg='skyblue').pack(fill='x')
 first_name_entry = tk.Entry(customer_frame)
 first_name_entry.pack(pady=5)
 
-tk.Label(customer_frame, text="Customer Last Name", bg='lightblue').pack(fill='x')
+tk.Label(customer_frame, text="Customer Last Name", bg='skyblue').pack(fill='x')
 last_name_entry = tk.Entry(customer_frame)
 last_name_entry.pack(pady=5)
 
-tk.Label(customer_frame, text="Phone Number (XXX-XXX-XXXX)", bg='lightblue').pack(fill='x')
+tk.Label(customer_frame, text="Phone Number (XXX-XXX-XXXX)", bg='skyblue').pack(fill='x')
 phone_entry = tk.Entry(customer_frame)
 phone_entry.pack(pady=5)
 
@@ -113,20 +113,20 @@ phone_entry.pack(pady=5)
 pet_frame = tk.LabelFrame(
     columns_frame,
     text="Pet Enter Info",
-    bg='lightblue',
+    bg='skyblue',
     font=('Arial', 10, 'bold')
 )
 pet_frame.pack(side='left', padx=20, pady=10)
 
-tk.Label(pet_frame, text="Pet Name", bg='lightblue').pack(fill='x')
+tk.Label(pet_frame, text="Pet Name", bg='skyblue').pack(fill='x')
 pet_name_entry = tk.Entry(pet_frame)
 pet_name_entry.pack(pady=5)
 
-tk.Label(pet_frame, text="Birthday (YYYY-MM-DD)", bg='lightblue').pack(fill='x')
+tk.Label(pet_frame, text="Birthday (YYYY-MM-DD)", bg='skyblue').pack(fill='x')
 pet_bday_entry = tk.Entry(pet_frame)
 pet_bday_entry.pack(pady=5)
 
-tk.Label(pet_frame, text="Pet Type", bg='lightblue').pack(fill='x')
+tk.Label(pet_frame, text="Pet Type", bg='skyblue').pack(fill='x')
 pet_type_entry = tk.Entry(pet_frame)
 pet_type_entry.pack(pady=5)
 
@@ -136,20 +136,20 @@ pet_type_entry.pack(pady=5)
 appt_frame = tk.LabelFrame(
     columns_frame,
     text="Appointment Enter Info",
-    bg='lightblue',
+    bg='skyblue',
     font=('Arial', 10, 'bold')
 )
 appt_frame.pack(side='left', padx=20, pady=10)
 
-tk.Label(appt_frame, text="Appointment Date (YYYY-MM-DD)", bg='lightblue').pack(fill='x')
+tk.Label(appt_frame, text="Appointment Date (YYYY-MM-DD)", bg='skyblue').pack(fill='x')
 appt_date_entry = tk.Entry(appt_frame)
 appt_date_entry.pack(pady=5)
 
-tk.Label(appt_frame, text="Time (HH:MM:SS)", bg='lightblue').pack(fill='x')
+tk.Label(appt_frame, text="Time (HH:MM:SS)", bg='skyblue').pack(fill='x')
 appt_time_entry = tk.Entry(appt_frame)
 appt_time_entry.pack(pady=5)
 
-tk.Label(appt_frame, text="Service", bg='lightblue').pack(fill='x')
+tk.Label(appt_frame, text="Service", bg='skyblue').pack(fill='x')
 service_selec = ttk.Combobox(appt_frame, values=["Bathing", "Grooming", "Nail Trimming", "Check-up"])
 service_selec.pack(pady=5)
 
@@ -217,54 +217,54 @@ tk.Button(create_frame, text="Create Appointment", command=create_appointment_ad
 
 
 # 2 images at the bottom
-image_frame = tk.Frame(create_frame, bg='lightblue')
+image_frame = tk.Frame(create_frame, bg='skyblue')
 image_frame.pack(pady=15)
 
 image_cat = Image.open("photos/cat-photo.jpg")
 image_cat = image_cat.resize((300, 150))
 photo_cat = ImageTk.PhotoImage(image_cat)
 
-label_cat = tk.Label(image_frame, image=photo_cat, bg='lightblue')
+label_cat = tk.Label(image_frame, image=photo_cat, bg='skyblue')
 label_cat.pack(side='left', padx=10)
 
 image_fish = Image.open("photos/fish-photo.jpg")
 image_fish = image_fish.resize((300, 150))
 photo_fish = ImageTk.PhotoImage(image_fish)
 
-label_fish = tk.Label(image_frame, image=photo_fish, bg='lightblue')
+label_fish = tk.Label(image_frame, image=photo_fish, bg='skyblue')
 label_fish.pack(side='left', padx=10)
 
 
 
 
 # Read Tab
-read_frame = tk.Frame(notebook, bg='lightblue')
+read_frame = tk.Frame(notebook, bg='skyblue')
 notebook.add(read_frame, text="Review your Info")
 
 tk.Label(
     read_frame,
     text="Review Your Information and Services we Offer!",
     font=('Comic Sans MS', 16, 'bold'),
-    bg='lightblue'
+    bg='skyblue'
 ).pack(pady=(10, 10))
 
-info_columns = tk.Frame(read_frame, bg='lightblue')
+info_columns = tk.Frame(read_frame, bg='skyblue')
 info_columns.pack(padx=20, pady=10)
 
 
 # Appointment Info Entry Box
-appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='lightblue', font=('Arial', 10, 'bold'))
+appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='skyblue', font=('Arial', 10, 'bold'))
 appt_frame.grid(row=0, padx=10, pady=10)
 
-tk.Label(appt_frame, text="Appointment ID", bg='lightblue').grid(row=0)
+tk.Label(appt_frame, text="Appointment ID", bg='skyblue').grid(row=0)
 appt_id_entry = tk.Entry(appt_frame)
 appt_id_entry.grid(row=1, pady=5)
 
-tk.Label(appt_frame, text="First Name", bg='lightblue').grid(row=2)
+tk.Label(appt_frame, text="First Name", bg='skyblue').grid(row=2)
 fname_entry = tk.Entry(appt_frame)
 fname_entry.grid(row=3, pady=5)
 
-tk.Label(appt_frame, text="Last Name", bg='lightblue').grid(row=4)
+tk.Label(appt_frame, text="Last Name", bg='skyblue').grid(row=4)
 lname_entry = tk.Entry(appt_frame)
 lname_entry.grid(row=5, pady=5)
 
@@ -333,18 +333,18 @@ tk.Button(appt_frame, text="Show Your Appointment!", command=show_appointment).g
 
 
 # Customer Info Entry Box
-cust_frame = tk.LabelFrame(info_columns, text="Customer Info", bg='lightblue', font=('Arial', 10, 'bold'))
+cust_frame = tk.LabelFrame(info_columns, text="Customer Info", bg='skyblue', font=('Arial', 10, 'bold'))
 cust_frame.grid(row=0, column=1, padx=10, pady=10)
 
-tk.Label(cust_frame, text="Customer ID", bg='lightblue').grid(row=0)
+tk.Label(cust_frame, text="Customer ID", bg='skyblue').grid(row=0)
 appointment_id_entry = tk.Entry(cust_frame)
 appointment_id_entry.grid(row=1, pady=5)
 
-tk.Label(cust_frame, text="First Name", bg='lightblue').grid(row=2)
+tk.Label(cust_frame, text="First Name", bg='skyblue').grid(row=2)
 first_name_read_entry = tk.Entry(cust_frame)
 first_name_read_entry.grid(row=3, pady=5)
 
-tk.Label(cust_frame, text="Last Name", bg='lightblue').grid(row=4)
+tk.Label(cust_frame, text="Last Name", bg='skyblue').grid(row=4)
 last_name_read_entry = tk.Entry(cust_frame)
 last_name_read_entry.grid(row=5, pady=5)
 
@@ -385,14 +385,14 @@ tk.Button(cust_frame, text="Show My Information!", command=show_customer_info).g
 
 
 # Pet Info Entry Box
-pet_frame = tk.LabelFrame(info_columns, text="Pet Info", bg='lightblue', font=('Arial', 10, 'bold'))
+pet_frame = tk.LabelFrame(info_columns, text="Pet Info", bg='skyblue', font=('Arial', 10, 'bold'))
 pet_frame.grid(row=0, column=2, padx=10, pady=10, sticky='n')
 
-tk.Label(pet_frame, text="Pet ID", bg='lightblue').grid(row=0)
+tk.Label(pet_frame, text="Pet ID", bg='skyblue').grid(row=0)
 pet_id_entry = tk.Entry(pet_frame)
 pet_id_entry.grid(row=1, pady=5)
 
-tk.Label(pet_frame, text="Pet Name", bg='lightblue').grid(row=2)
+tk.Label(pet_frame, text="Pet Name", bg='skyblue').grid(row=2)
 pet_name_read_entry = tk.Entry(pet_frame)
 pet_name_read_entry.grid(row=3, pady=5)
 
@@ -479,82 +479,222 @@ wheaten_terrier.pack(pady=15)
 
 
 # Update Tab
-update_frame = tk.Frame(notebook, bg='lightblue')
+update_frame = tk.Frame(notebook, bg='skyblue')
 notebook.add(update_frame, text="Update your Info")
 
 tk.Label(
     update_frame,
     text="Update your Appointments and your Info & Pets Info!",
     font=('Comic Sans MS', 16, 'bold'),
-    bg='lightblue'
+    bg='skyblue'
 ).pack(pady=(10, 10))
 
-info_columns = tk.Frame(update_frame, bg='lightblue')
+info_columns = tk.Frame(update_frame, bg='skyblue')
 info_columns.pack(padx=20, pady=10)
 
 # Appointment Update Entry Box
-update_appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='lightblue', font=('Arial', 10, 'bold'))
+update_appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='skyblue', font=('Arial', 10, 'bold'))
 update_appt_frame.grid(row=0, padx=10, pady=10)
 
-tk.Label(update_appt_frame, text="Appointment ID", bg='lightblue').grid(row=0)
+tk.Label(update_appt_frame, text="Appointment ID", bg='skyblue').grid(row=0)
 appt_id_update_entry = tk.Entry(update_appt_frame)
 appt_id_update_entry.grid(row=1, pady=5)
 
-tk.Label(update_appt_frame, text="Appointment Date (YYYY-MM-DD)", bg='lightblue').grid(row=2)
+tk.Label(update_appt_frame, text="New Appointment Date (YYYY-MM-DD)", bg='skyblue').grid(row=2)
 date_update_entry = tk.Entry(update_appt_frame)
 date_update_entry.grid(row=3, pady=5)
 
-tk.Label(update_appt_frame, text="Time (HH:MM:SS)", bg='lightblue').grid(row=4)
+tk.Label(update_appt_frame, text="New Time (HH:MM:SS)", bg='skyblue').grid(row=4)
 time_update_entry = tk.Entry(update_appt_frame)
 time_update_entry.grid(row=5, pady=5)
 
-tk.Label(update_appt_frame, text="Status", bg='lightblue').grid(row=6)
-status_update_entry = tk.Entry(update_appt_frame)
-status_update_entry.grid(row=7, pady=5)
+tk.Label(update_appt_frame, text="New Service", bg='skyblue').grid(row=6)
+service_update_entry = ttk.Combobox(update_appt_frame, values=["Bathing", "Grooming", "Nail Trimming", "Check-up"])
+service_update_entry.grid(row=7, pady=5)
 
-tk.Button(update_appt_frame, text="Update Your Appointment!").grid(row=9, pady=10)
+tk.Label(update_appt_frame, text="New Status", bg='skyblue').grid(row=8)
+status_update_entry = ttk.Combobox(update_appt_frame, values=["Scheduled", "Cancelled"])
+status_update_entry.grid(row=9, pady=5)
 
+def update_appointment():
+    appt_id = appt_id_update_entry.get()
+    new_date = date_update_entry.get()
+    new_time = time_update_entry.get()
+    new_service = service_update_entry.get()
+    new_status = status_update_entry.get()
+
+    if not appt_id:
+        tk.messagebox.showerror("Missing Info", "Please enter Appointment ID.")
+        return
+
+    update_fields = []
+    values = []
+
+    if new_date:
+        update_fields.append("date = ?")
+        values.append(new_date)
+    if new_time:
+        update_fields.append("time = ?")
+        values.append(new_time)
+    if new_service:
+        update_fields.append("service_id = (SELECT service_id FROM Services WHERE service_type = ?)")
+        values.append(new_service)
+    if new_status:
+        update_fields.append("status = ?")
+        values.append(new_status)
+
+    if not update_fields:
+        tk.messagebox.showwarning("No Changes", "Please fill in at least one field to update.")
+        return
+
+    values.append(appt_id)
+
+    update_query = f"UPDATE Appointments SET {', '.join(update_fields)} WHERE appointment_id = ?"
+
+    conn = sqlite3.connect("proj1.db")
+    cur = conn.cursor()
+
+
+    cur.execute("SELECT * FROM Appointments WHERE appointment_id = ?", (appt_id,))
+    appt = cur.fetchone()
+
+    if not appt:
+        tk.messagebox.showerror("Invalid ID", f"No appointment found with ID {appt_id}. Please enter a valid appointment ID.")
+        conn.close()
+        return
+
+
+
+    cur.execute(update_query, values)
+    conn.commit()
+    conn.close()
+
+    tk.messagebox.showinfo("Success", "Appointment updated!")
+
+
+tk.Button(update_appt_frame, text="Update Your Appointment!", command=update_appointment).grid(row=11, pady=10)
 
 
 
 # Pet Update Entry Box
-update_customer_frame = tk.LabelFrame(info_columns, text="Update Pet Info", bg='lightblue', font=('Arial', 10, 'bold'))
+update_customer_frame = tk.LabelFrame(info_columns, text="Update Pet Info", bg='skyblue', font=('Arial', 10, 'bold'))
 update_customer_frame.grid(row=0, column=1, padx=10, pady=10)
 
-tk.Label(update_customer_frame, text="Pet ID", bg='lightblue').grid(row=0)
+tk.Label(update_customer_frame, text="Pet ID", bg='skyblue').grid(row=0)
 pet_id_update_entry = tk.Entry(update_customer_frame)
 pet_id_update_entry.grid(row=1, pady=5)
 
-tk.Label(update_customer_frame, text="New Name", bg='lightblue').grid(row=2)
+tk.Label(update_customer_frame, text="New Name", bg='skyblue').grid(row=2)
 pet_name_update_entry = tk.Entry(update_customer_frame)
 pet_name_update_entry.grid(row=3, pady=5)
 
-tk.Button(update_customer_frame, text="Update Your Pet's Information!").grid(row=6, pady=10)
+
+def update_pet_info():
+    pet_update_id = pet_id_update_entry.get()
+    pet_name_update= pet_name_update_entry.get()
+
+    if not pet_update_id:
+        tk.messagebox.showerror("Missing Info", "Please enter Pet ID.")
+        return
+    
+    if not pet_name_update:
+        tk.messagebox.showerror("Missing Info", "Please enter a new name.")
+        return
+    
+    conn = sqlite3.connect("proj1.db")
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM Pets WHERE pet_id = ?", (pet_update_id,))
+    pet = cur.fetchone()
+
+    if not pet:
+        tk.messagebox.showerror("Invalid ID", f"No pet found with ID {pet_update_id}. Please enter a valid pet ID.")
+        conn.close()
+        return
+
+    cur.execute("UPDATE Pets SET name = ? WHERE pet_id = ?", (pet_name_update, pet_update_id))
+    conn.commit()
+    conn.close()
+
+    tk.messagebox.showinfo("Success", "Pet name updated!")
+
+
+tk.Button(update_customer_frame, text="Update Your Pet's Information!", command=update_pet_info).grid(row=6, pady=10)
 
 
 
 # Customer Update Entry Box
-update_pet_frame = tk.LabelFrame(info_columns, text="Update Your Info", bg='lightblue', font=('Arial', 10, 'bold'))
+update_pet_frame = tk.LabelFrame(info_columns, text="Update Your Info", bg='skyblue', font=('Arial', 10, 'bold'))
 update_pet_frame.grid(row=0, column=2, padx=10, pady=10)
 
-tk.Label(update_pet_frame, text="Customer ID", bg='lightblue').grid(row=0)
+tk.Label(update_pet_frame, text="Customer ID", bg='skyblue').grid(row=0)
 customer_id_update_entry = tk.Entry(update_pet_frame)
 customer_id_update_entry.grid(row=1, pady=5)
 
-tk.Label(update_pet_frame, text="New First Name", bg='lightblue').grid(row=2)
+tk.Label(update_pet_frame, text="New First Name", bg='skyblue').grid(row=2)
 fname_update_entry = tk.Entry(update_pet_frame)
 fname_update_entry.grid(row=3, pady=5)
 
-tk.Label(update_pet_frame, text="New Last Name", bg='lightblue').grid(row=4)
+tk.Label(update_pet_frame, text="New Last Name", bg='skyblue').grid(row=4)
 lname_update_entry = tk.Entry(update_pet_frame)
 lname_update_entry.grid(row=5, pady=5)
 
-tk.Label(update_pet_frame, text="New Phone Number", bg='lightblue').grid(row=6)
+tk.Label(update_pet_frame, text="New Phone Number", bg='skyblue').grid(row=6)
 phone_update_entry = tk.Entry(update_pet_frame)
 phone_update_entry.grid(row=7, pady=5)
 
 
-tk.Button(update_pet_frame, text="Update Your Information!").grid(row=8, pady=10)
+def update_customer_info():
+    customer_id_update = customer_id_update_entry.get()
+    fname_update = fname_update_entry.get()
+    lname_update = lname_update_entry.get()
+    phone_update = phone_update_entry.get()
+
+    if not customer_id_update:
+        tk.messagebox.showerror("Missing Info", "Please enter Customer ID.")
+        return
+    
+    update_fields = []
+    values = []
+
+    if fname_update:
+        update_fields.append("first_name = ?")
+        values.append(fname_update)
+    if lname_update:
+        update_fields.append("last_name = ?")
+        values.append(lname_update)
+    if phone_update:
+        update_fields.append("phone_number = ?")
+        values.append(phone_update)
+
+
+    if not update_fields:
+        tk.messagebox.showwarning("No Changes", "Please fill in at least one field to update.")
+        return
+
+    values.append(customer_id_update)
+
+    update_query = f"UPDATE Customers SET {', '.join(update_fields)} WHERE customer_id = ?"
+
+    conn = sqlite3.connect("proj1.db")
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM Customers WHERE customer_id = ?", (customer_id_update,))
+    customer = cur.fetchone()
+
+    if not customer:
+        tk.messagebox.showerror("Invalid ID", f"No customer found with ID {customer_id_update}. Please enter a valid customer ID.")
+        conn.close()
+        return
+
+    cur.execute(update_query, values)
+    conn.commit()
+    conn.close()
+
+    tk.messagebox.showinfo("Success", "Your Information is Updated!")
+
+
+tk.Button(update_pet_frame, text="Update Your Information!", command=update_customer_info).grid(row=8, pady=10)
 
 
 # Groomer Photo
@@ -569,7 +709,7 @@ groomer.pack(pady=15)
 
 
 # Delete Tab
-delete_frame = tk.Frame(notebook, bg='lightblue')
+delete_frame = tk.Frame(notebook, bg='skyblue')
 notebook.add(delete_frame, text="Delete your Info")
 
 
@@ -577,26 +717,26 @@ tk.Label(
     delete_frame,
     text="Delete your Appointments and your Info & Pets Info!",
     font=('Comic Sans MS', 16, 'bold'),
-    bg='lightblue'
+    bg='skyblue'
 ).pack(pady=(10, 10))
 
-info_columns = tk.Frame(delete_frame, bg='lightblue')
+info_columns = tk.Frame(delete_frame, bg='skyblue')
 info_columns.pack(padx=20, pady=10)
 
 
 # Appointment Info Entry Box
-appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='lightblue', font=('Arial', 10, 'bold'))
+appt_frame = tk.LabelFrame(info_columns, text="Appointment Info", bg='skyblue', font=('Arial', 10, 'bold'))
 appt_frame.grid(row=0, padx=10, pady=10)
 
-tk.Label(appt_frame, text="Appointment ID", bg='lightblue').grid(row=0)
+tk.Label(appt_frame, text="Appointment ID", bg='skyblue').grid(row=0)
 appt_id_delete_entry = tk.Entry(appt_frame)
 appt_id_delete_entry.grid(row=1, pady=5)
 
-tk.Label(appt_frame, text="First Name", bg='lightblue').grid(row=2)
+tk.Label(appt_frame, text="First Name", bg='skyblue').grid(row=2)
 fname_delete_entry = tk.Entry(appt_frame)
 fname_delete_entry.grid(row=3, pady=5)
 
-tk.Label(appt_frame, text="Last Name", bg='lightblue').grid(row=4)
+tk.Label(appt_frame, text="Last Name", bg='skyblue').grid(row=4)
 lname_delete_entry = tk.Entry(appt_frame)
 lname_delete_entry.grid(row=5, pady=5)
 
@@ -640,14 +780,14 @@ tk.Button(appt_frame, text="Delete Your Appointment!", command=delete_appointmen
 
 
 # Pet Info Entry Box
-pet_delete_frame = tk.LabelFrame(info_columns, text="Pet Info", bg='lightblue', font=('Arial', 10, 'bold'))
+pet_delete_frame = tk.LabelFrame(info_columns, text="Pet Info", bg='skyblue', font=('Arial', 10, 'bold'))
 pet_delete_frame.grid(row=0, column=2, padx=10, pady=10)
 
-tk.Label(pet_delete_frame, text="Pet ID", bg='lightblue').grid(row=0)
+tk.Label(pet_delete_frame, text="Pet ID", bg='skyblue').grid(row=0)
 pet_id_delete_entry = tk.Entry(pet_delete_frame)
 pet_id_delete_entry.grid(row=1, pady=5)
 
-tk.Label(pet_delete_frame, text="Pet Name", bg='lightblue').grid(row=2)
+tk.Label(pet_delete_frame, text="Pet Name", bg='skyblue').grid(row=2)
 pet_name_delete_entry = tk.Entry(pet_delete_frame)
 pet_name_delete_entry.grid(row=3, pady=5)
 
@@ -684,18 +824,18 @@ tk.Button(pet_delete_frame, text="Delete Your Pet Information!", command=delete_
 
 
 # Customer Info Entry Box
-cust_delete_frame = tk.LabelFrame(info_columns, text="Customer Info", bg='lightblue', font=('Arial', 10, 'bold'))
+cust_delete_frame = tk.LabelFrame(info_columns, text="Customer Info", bg='skyblue', font=('Arial', 10, 'bold'))
 cust_delete_frame.grid(row=0, column=3, padx=10, pady=10)
 
-tk.Label(cust_delete_frame, text="Customer ID", bg='lightblue').grid(row=0)
+tk.Label(cust_delete_frame, text="Customer ID", bg='skyblue').grid(row=0)
 customer_id_delete_entry = tk.Entry(cust_delete_frame)
 customer_id_delete_entry.grid(row=1, pady=5)
 
-tk.Label(cust_delete_frame, text="First Name", bg='lightblue').grid(row=2)
+tk.Label(cust_delete_frame, text="First Name", bg='skyblue').grid(row=2)
 first_name_delete_entry = tk.Entry(cust_delete_frame)
 first_name_delete_entry.grid(row=3, pady=5)
 
-tk.Label(cust_delete_frame, text="Last Name", bg='lightblue').grid(row=4)
+tk.Label(cust_delete_frame, text="Last Name", bg='skyblue').grid(row=4)
 last_name_delete_entry = tk.Entry(cust_delete_frame)
 last_name_delete_entry.grid(row=5, pady=5)
 
@@ -739,6 +879,5 @@ photo_doc = ImageTk.PhotoImage(doc_dog)
 
 doc_dog = tk.Label(delete_frame, image=photo_doc)
 doc_dog.pack(pady=15)
-
 
 root.mainloop()
